@@ -43,7 +43,7 @@ curl -X POST "http://localhost:8080/analyzeAd/5966b1e8" \
 ## Tech
 
 * React/TS with worker pool for **parallel** processing
-* **Google Gemini** (FREE!) for VLM analysis: OCR, logos/objects, color palette, sentiment, tone
+* **Google Gemini API** for VLM analysis: OCR, logos/objects, color palette, sentiment, tone
 * Trend-aware analysis considering current marketing best practices
 * Next.js for backend and Railway/Vercel to host
 
