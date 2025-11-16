@@ -1,4 +1,4 @@
-# AdSensei Backend
+# AdZilla Backend
 
 Turns raw ad creatives into **clear, actionable insights**—per asset and in batch.
 
@@ -10,14 +10,14 @@ Turns raw ad creatives into **clear, actionable insights**—per asset and in ba
 ## Quickstart
 
 ```bash
-git clone https://github.com/<you>/adsensei-backend.git
-cd adsensei-backend
+git clone https://github.com/<you>/adzilla-backend.git
+cd adzilla-backend
 cp .env.example .env   # fill vars below
 npm i && npm run dev   # or: npm start
 
 # Docker
-docker build -t adsensei-backend .
-docker run --env-file .env -p 8080:8080 adsensei-backend
+docker build -t adzilla-backend .
+docker run --env-file .env -p 8080:8080 adzilla-backend
 ```
 
 ## Env Vars
@@ -42,8 +42,9 @@ curl -X POST "http://localhost:8080/analyzeAd/5966b1e8" \
 
 ## Tech
 
-* Node/TS (or Python equivalent), worker pool for **parallel** processing
-* **Lava** + **Reka** for VLM summaries/rationales; local extractors for OCR, logos/objects, palette/density
+* Node/TS with worker pool for **parallel** processing
+* **Google Gemini** (FREE!) for VLM analysis: OCR, logos/objects, color palette, sentiment, tone
+* Trend-aware analysis considering current marketing best practices
 * Reducer to build campaign insights fast (<5 min for ~40–50 assets)
 
 ## License & Credits

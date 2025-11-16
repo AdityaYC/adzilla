@@ -4,8 +4,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "start": "node dist/server.js",
+    "dev": "tsx watch src/simpleServer.ts",
+    "dev:old": "tsx watch src/server.ts",
+    "start": "node dist/simpleServer.js",
     "build": "tsc -p ."
   },
   "dependencies": {

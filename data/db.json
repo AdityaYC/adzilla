@@ -4,7 +4,7 @@
       "id": "0d149293-6029-478a-9f0b-72d974178f7e",
       "url": "https://s3-calhacks.s3.us-east-2.amazonaws.com/i0001.png",
       "type": "image",
-      "status": "done",
+      "status": "error",
       "result": {
         "asset_type": "image",
         "summary": "Promotional advertisement for Crunch Fitness offering a limited-time membership deal.",
@@ -83,7 +83,8 @@
           "brandFit": 8,
           "memorability": 7
         }
-      }
+      },
+      "error": "Failed to analyze ad: AI analysis failed (gpt-4o-mini): Forward token contains invalid JSON. Please check your token format."
     },
     {
       "id": "ce26366b-4a11-4b83-b167-57c8503c6e05",
@@ -1497,8 +1498,285 @@
           "memorability": 7
         }
       }
+    },
+    {
+      "id": "d92aeb98-d560-470b-8b83-44727eca0099",
+      "url": "https://www.youtube.com/watch?v=Bcpu-jqAL6w",
+      "type": "unknown",
+      "status": "pending"
+    },
+    {
+      "id": "1692c3f7-a00a-4565-b427-c913d01eba93",
+      "url": "https://www.youtube.com/watch?v=Bcpu-jqAL6w",
+      "type": "unknown",
+      "status": "pending"
+    },
+    {
+      "id": "d5421aa5-67e8-4d1f-9d18-54c0ed758955",
+      "url": "https://picsum.photos/800/600",
+      "type": "unknown",
+      "status": "pending"
+    },
+    {
+      "id": "9e22dc5b-84c6-4197-b1af-167b9b25395f",
+      "url": "https://picsum.photos/800/600",
+      "type": "unknown",
+      "status": "error",
+      "error": "OpenAI 400: Forward token contains invalid JSON. Please check your token format."
+    },
+    {
+      "id": "a04a99ef-bf18-4c15-8c13-22a9daeb9bd1",
+      "url": "https://picsum.photos/800/600",
+      "type": "unknown",
+      "status": "done",
+      "error": "Gemini API error: models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+      "result": {
+        "asset_type": "unknown",
+        "summary": "Eye-catching advertisement featuring modern design with bold typography and vibrant color scheme. The composition effectively draws attention to the key message while maintaining visual balance.",
+        "catchiness_level": 82,
+        "aesthetics_score": 93,
+        "readability_score": 89,
+        "brand_fit_score": 82,
+        "memorability_score": 82,
+        "sentiment": "neutral",
+        "tone": "urgent",
+        "product_category": "automotive",
+        "detected_text": [
+          "Limited Time Offer",
+          "Shop Now",
+          "50% Off",
+          "Free Shipping"
+        ],
+        "detected_logos": [],
+        "objects": [
+          "product",
+          "person",
+          "background gradient",
+          "text overlay",
+          "call-to-action button"
+        ],
+        "audio_visual_signals": {
+          "color_palette": [
+            "#FF6B6B",
+            "#4ECDC4",
+            "#45B7D1",
+            "#FFA07A",
+            "#98D8C8"
+          ],
+          "composition_notes": "Follows rule of thirds with strong focal point. Visual hierarchy guides eye from headline to product to CTA.",
+          "style_keywords": [
+            "modern",
+            "vibrant",
+            "clean",
+            "professional"
+          ]
+        },
+        "target_audience": {
+          "age_ranges": [
+            "18-24",
+            "25-34"
+          ],
+          "interests": [
+            "technology",
+            "lifestyle",
+            "shopping",
+            "innovation"
+          ],
+          "regions": [
+            "North America",
+            "Europe",
+            "Asia Pacific"
+          ]
+        },
+        "best_platforms": [
+          "Instagram",
+          "Facebook",
+          "TikTok",
+          "LinkedIn"
+        ],
+        "improvement_suggestions": [
+          "Increase contrast between text and background for better readability",
+          "Add social proof elements (testimonials, ratings) to build trust",
+          "Consider A/B testing different call-to-action phrases",
+          "Optimize image for mobile viewing with larger text",
+          "Add urgency indicators (countdown timer, limited stock)"
+        ],
+        "reasons_for_scores": [
+          "Strong visual appeal with modern design principles",
+          "Clear value proposition and messaging",
+          "Effective use of color psychology",
+          "Good balance between text and imagery",
+          "Professional execution with attention to detail"
+        ],
+        "dimension_profile": {
+          "creative_attention": 86,
+          "aesthetics": 86,
+          "readability": 94,
+          "brandFit": 81,
+          "memorability": 90
+        }
+      }
+    },
+    {
+      "id": "250dbe5f-1e29-403c-8a71-79c0619bbefb",
+      "url": "https://picsum.photos/800/601",
+      "type": "unknown",
+      "status": "done",
+      "result": {
+        "asset_type": "unknown",
+        "summary": "Eye-catching advertisement featuring modern design with bold typography and vibrant color scheme. The composition effectively draws attention to the key message while maintaining visual balance.",
+        "catchiness_level": 89,
+        "aesthetics_score": 91,
+        "readability_score": 93,
+        "brand_fit_score": 86,
+        "memorability_score": 82,
+        "sentiment": "positive",
+        "tone": "friendly",
+        "product_category": "lifestyle",
+        "detected_text": [
+          "Limited Time Offer",
+          "Shop Now"
+        ],
+        "detected_logos": [
+          "Brand Logo"
+        ],
+        "objects": [
+          "product",
+          "person",
+          "background gradient"
+        ],
+        "audio_visual_signals": {
+          "color_palette": [
+            "#FF6B6B",
+            "#4ECDC4",
+            "#45B7D1"
+          ],
+          "composition_notes": "Follows rule of thirds with strong focal point. Visual hierarchy guides eye from headline to product to CTA.",
+          "style_keywords": [
+            "modern",
+            "vibrant"
+          ]
+        },
+        "target_audience": {
+          "age_ranges": [
+            "18-24",
+            "25-34"
+          ],
+          "interests": [
+            "technology",
+            "lifestyle"
+          ],
+          "regions": [
+            "North America"
+          ]
+        },
+        "best_platforms": [
+          "Instagram",
+          "Facebook"
+        ],
+        "improvement_suggestions": [
+          "Increase contrast between text and background for better readability",
+          "Add social proof elements (testimonials, ratings) to build trust",
+          "Consider A/B testing different call-to-action phrases"
+        ],
+        "reasons_for_scores": [
+          "Strong visual appeal with modern design principles",
+          "Clear value proposition and messaging",
+          "Effective use of color psychology"
+        ],
+        "dimension_profile": {
+          "creative_attention": 79,
+          "aesthetics": 97,
+          "readability": 94,
+          "brandFit": 99,
+          "memorability": 82
+        }
+      }
+    },
+    {
+      "id": "4ca54da3-70b0-4698-80d6-6a57e3a85885",
+      "url": "https://www.youtube.com/watch?v=Bcpu-jqAL6w",
+      "type": "unknown",
+      "status": "done",
+      "result": {
+        "asset_type": "unknown",
+        "summary": "Eye-catching advertisement featuring modern design with bold typography and vibrant color scheme. The composition effectively draws attention to the key message while maintaining visual balance.",
+        "catchiness_level": 83,
+        "aesthetics_score": 94,
+        "readability_score": 82,
+        "brand_fit_score": 98,
+        "memorability_score": 94,
+        "sentiment": "positive",
+        "tone": "professional",
+        "product_category": "technology",
+        "detected_text": [
+          "Limited Time Offer",
+          "Shop Now"
+        ],
+        "detected_logos": [
+          "Brand Logo"
+        ],
+        "objects": [
+          "product",
+          "person",
+          "background gradient"
+        ],
+        "audio_visual_signals": {
+          "color_palette": [
+            "#FF6B6B",
+            "#4ECDC4",
+            "#45B7D1"
+          ],
+          "composition_notes": "Follows rule of thirds with strong focal point. Visual hierarchy guides eye from headline to product to CTA.",
+          "style_keywords": [
+            "modern",
+            "vibrant"
+          ]
+        },
+        "target_audience": {
+          "age_ranges": [
+            "18-24",
+            "25-34"
+          ],
+          "interests": [
+            "technology",
+            "lifestyle"
+          ],
+          "regions": [
+            "North America"
+          ]
+        },
+        "best_platforms": [
+          "Instagram",
+          "Facebook"
+        ],
+        "improvement_suggestions": [
+          "Increase contrast between text and background for better readability",
+          "Add social proof elements (testimonials, ratings) to build trust",
+          "Consider A/B testing different call-to-action phrases"
+        ],
+        "reasons_for_scores": [
+          "Strong visual appeal with modern design principles",
+          "Clear value proposition and messaging",
+          "Effective use of color psychology"
+        ],
+        "dimension_profile": {
+          "creative_attention": 87,
+          "aesthetics": 82,
+          "readability": 95,
+          "brandFit": 84,
+          "memorability": 82
+        }
+      }
+    },
+    {
+      "id": "3add4ab5-d77b-4624-ab45-3489a595f214",
+      "url": "https://picsum.photos/800/700",
+      "type": "unknown",
+      "status": "error",
+      "error": "Gemini API error: Request failed with status code 404"
     }
   ],
   "createdAt": "2025-10-26T00:28:18.352Z",
-  "updatedAt": "2025-10-26T01:40:40.167Z"
+  "updatedAt": "2025-11-16T04:28:43.638Z"
 }

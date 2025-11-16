@@ -12,7 +12,8 @@ import cors from "cors";
 
 const raw = process.env.CORS_ORIGIN?.trim();
 const allowlist = raw && raw !== "" ? raw.split(",").map((s) => s.trim()) : [];
-const corsOrigin: any = !raw || raw === "" ? "" : allowlist;
+// Allow all origins if CORS_ORIGIN is empty or "*"
+const corsOrigin: any = !raw || raw === "" || raw === "*" ? true : allowlist;
 
 const app = express();
 
@@ -103,7 +104,38 @@ app.get("/assets", async (_req, res) => {
   res.json({ count: assets.length, assets });
 });
 
-// Analyze single ad
+// Analyze single ad (spec endpoint)
+app.post("/analyzeAd/:id", async (req, res) => {
+  const ad = Store.get(req.params.id);
+  if (!ad) return res.status(404).json({ error: "Ad not found" });
+
+  try {
+    ad.status = "processing";
+    Store.upsert(ad);
+    
+    // Use working OpenAI client
+    const result = await analyzeWithOpenAI([ad.url], ad.type);
+    
+    ad.result = result;
+    ad.status = "done";
+    Store.upsert(ad);
+    
+    res.json({
+      id: ad.id,
+      url: ad.url,
+      type: ad.type,
+      status: ad.status,
+      result,
+    });
+  } catch (e: any) {
+    ad.status = "error";
+    ad.error = e?.message || "analysis failed";
+    Store.upsert(ad);
+    res.status(500).json({ error: ad.error });
+  }
+});
+
+// Legacy endpoint (kept for compatibility)
 app.post("/analyseAd/:adId", async (req, res) => {
   const ad = Store.get(req.params.adId);
   if (!ad) return res.status(404).json({ error: "Ad not found" });
@@ -143,7 +175,9 @@ app.post("/analyseAll", async (req, res) => {
       try {
         a.status = "processing";
         Store.upsert(a);
+        
         const result = await analyzeWithOpenAI([a.url], a.type);
+        
         a.result = result;
         a.status = "done";
         Store.upsert(a);
@@ -167,7 +201,13 @@ app.get("/ad/:adId", (req, res) => {
   res.json(ad);
 });
 
-// All-ad rollups
+// All-ad rollups (spec endpoint - POST)
+app.post("/allAdInsights", (req, res) => {
+  const insights = buildAllInsights(Store.list());
+  res.json(insights);
+});
+
+// Legacy endpoint (kept for compatibility - GET)
 app.get("/AllAdInsights", (req, res) => {
   const insights = buildAllInsights(Store.list());
   res.json(insights);

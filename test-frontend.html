@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdSensei - Test Frontend</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .status {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        
+        .status.connected {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.disconnected {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        textarea {
+            min-height: 100px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        button.secondary {
+            background: #6c757d;
+        }
+        
+        button.secondary:hover {
+            background: #5a6268;
+        }
+        
+        .results {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .asset-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .asset-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .asset-card .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .status-badge.pending { background: #fff3cd; color: #856404; }
+        .status-badge.processing { background: #cce5ff; color: #004085; }
+        .status-badge.done { background: #d4edda; color: #155724; }
+        .status-badge.error { background: #f8d7da; color: #721c24; }
+        
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .score-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .score-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .score-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 AdSensei Test Frontend</h1>
+        <p class="subtitle">Test your backend API connection and analyze ad creatives</p>
+        
+        <div id="connectionStatus" class="status disconnected">
+            🔴 Checking connection...
+        </div>
+        
+        <!-- Ingest Section -->
+        <div class="section">
+            <h2>📥 Ingest Ads</h2>
+            <label>Enter ad URLs (one per line):</label>
+            <textarea id="urlInput" placeholder="https://example.com/ad1.jpg
+https://example.com/ad2.jpg
+https://picsum.photos/800/600"></textarea>
+            <button onclick="ingestAds()">Ingest Ads</button>
+            <button onclick="loadAssets()" class="secondary">Refresh Assets</button>
+        </div>
+        
+        <!-- Assets Section -->
+        <div class="section">
+            <h2>📊 Your Assets</h2>
+            <div id="assetsList">
+                <p style="color: #666;">No assets yet. Ingest some ads to get started!</p>
+            </div>
+        </div>
+        
+        <!-- Insights Section -->
+        <div class="section">
+            <h2>🔍 Batch Insights</h2>
+            <button onclick="getInsights()">Get All Insights</button>
+            <button onclick="exportCSV()" class="secondary">Export CSV</button>
+            <div id="insightsResults"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8080';
+        let assets = [];
+
+        // Check connection on load
+        window.addEventListener('load', checkConnection);
+
+        async function checkConnection() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/`);
+                const text = await response.text();
+                
+                if (response.ok) {
+                    document.getElementById('connectionStatus').className = 'status connected';
+                    document.getElementById('connectionStatus').innerHTML = '🟢 Connected to backend at ' + API_BASE_URL;
+                    loadAssets();
+                } else {
+                    throw new Error('Connection failed');
+                }
+            } catch (error) {
+                document.getElementById('connectionStatus').className = 'status disconnected';
+                document.getElementById('connectionStatus').innerHTML = '🔴 Cannot connect to backend. Make sure it\'s running at ' + API_BASE_URL;
+            }
+        }
+
+        async function ingestAds() {
+            const urlText = document.getElementById('urlInput').value;
+            const urls = urlText.split('\n').map(u => u.trim()).filter(u => u);
+            
+            if (urls.length === 0) {
+                alert('Please enter at least one URL');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/ingest/json`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ urls })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert(`✅ Ingested ${data.ingested} ads!`);
+                    document.getElementById('urlInput').value = '';
+                    loadAssets();
+                } else {
+                    alert('❌ Error: ' + (data.error || 'Failed to ingest'));
+                }
+            } catch (error) {
+                alert('❌ Connection error: ' + error.message);
+            }
+        }
+
+        async function loadAssets() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/assets`);
+                const data = await response.json();
+                assets = data.assets;
+                displayAssets();
+            } catch (error) {
+                console.error('Failed to load assets:', error);
+            }
+        }
+
+        function displayAssets() {
+            const container = document.getElementById('assetsList');
+            
+            if (assets.length === 0) {
+                container.innerHTML = '<p style="color: #666;">No assets yet. Ingest some ads to get started!</p>';
+                return;
+            }
+
+            container.innerHTML = assets.map(asset => `
+                <div class="asset-card">
+                    <h3>Asset ${asset.id.substring(0, 8)}</h3>
+                    <span class="status-badge ${asset.status}">${asset.status.toUpperCase()}</span>
+                    <p><strong>URL:</strong> ${asset.url}</p>
+                    <p><strong>Type:</strong> ${asset.type}</p>
+                    
+                    ${asset.status === 'pending' ? `
+                        <button onclick="analyzeAd('${asset.id}')">🔍 Analyze This Ad</button>
+                    ` : ''}
+                    
+                    ${asset.result ? `
+                        <div class="score-grid">
+                            <div class="score-item">
+                                <div class="score-value">${asset.result.catchiness_level}</div>
+                                <div class="score-label">Catchiness</div>
+                            </div>
+                            <div class="score-item">
+                                <div class="score-value">${asset.result.aesthetics_score}</div>
+                                <div class="score-label">Aesthetics</div>
+                            </div>
+                            <div class="score-item">
+                                <div class="score-value">${asset.result.readability_score}</div>
+                                <div class="score-label">Readability</div>
+                            </div>
+                            <div class="score-item">
+                                <div class="score-value">${asset.result.brand_fit_score}</div>
+                                <div class="score-label">Brand Fit</div>
+                            </div>
+                            <div class="score-item">
+                                <div class="score-value">${asset.result.memorability_score}</div>
+                                <div class="score-label">Memorability</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 10px;"><strong>Summary:</strong> ${asset.result.summary}</p>
+                        <p><strong>Sentiment:</strong> ${asset.result.sentiment} | <strong>Tone:</strong> ${asset.result.tone}</p>
+                    ` : ''}
+                    
+                    ${asset.error ? `
+                        <p style="color: #721c24; margin-top: 10px;"><strong>Error:</strong> ${asset.error}</p>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        async function analyzeAd(assetId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/analyzeAd/${assetId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                if (response.ok) {
+                    alert('⏳ Analysis started! This may take 30-90 seconds...');
+                    
+                    // Poll for updates
+                    const pollInterval = setInterval(async () => {
+                        await loadAssets();
+                        const asset = assets.find(a => a.id === assetId);
+                        
+                        if (asset && (asset.status === 'done' || asset.status === 'error')) {
+                            clearInterval(pollInterval);
+                            if (asset.status === 'done') {
+                                alert('✅ Analysis complete!');
+                            } else {
+                                alert('❌ Analysis failed: ' + asset.error);
+                            }
+                        }
+                    }, 3000);
+                } else {
+                    const data = await response.json();
+                    alert('❌ Error: ' + (data.error || 'Failed to analyze'));
+                }
+            } catch (error) {
+                alert('❌ Connection error: ' + error.message);
+            }
+        }
+
+        async function getInsights() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/allAdInsights`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('insightsResults').innerHTML = `
+                        <div class="results">
+                            <h3>📊 Campaign Insights</h3>
+                            <p><strong>Total Analyzed:</strong> ${data.totals.analyzed}</p>
+                            
+                            <h4 style="margin-top: 20px;">Average Scores:</h4>
+                            <div class="score-grid">
+                                <div class="score-item">
+                                    <div class="score-value">${data.averages.catchiness}</div>
+                                    <div class="score-label">Catchiness</div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-value">${data.averages.aesthetics}</div>
+                                    <div class="score-label">Aesthetics</div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-value">${data.averages.readability}</div>
+                                    <div class="score-label">Readability</div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-value">${data.averages.brandFit}</div>
+                                    <div class="score-label">Brand Fit</div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-value">${data.averages.memorability}</div>
+                                    <div class="score-label">Memorability</div>
+                                </div>
+                            </div>
+                            
+                            <details style="margin-top: 20px;">
+                                <summary style="cursor: pointer; font-weight: 600;">View Full JSON</summary>
+                                <pre>${JSON.stringify(data, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `;
+                } else {
+                    alert('❌ Error: ' + (data.error || 'Failed to get insights'));
+                }
+            } catch (error) {
+                alert('❌ Connection error: ' + error.message);
+            }
+        }
+
+        function exportCSV() {
+            window.open(`${API_BASE_URL}/export.csv`, '_blank');
+        }
+
+        // Auto-refresh assets every 5 seconds if any are processing
+        setInterval(() => {
+            if (assets.some(a => a.status === 'processing')) {
+                loadAssets();
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
