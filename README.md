@@ -42,11 +42,11 @@ curl -X POST "http://localhost:8080/analyzeAd/5966b1e8" \
 
 ## Tech
 
-* Node/TS with worker pool for **parallel** processing
-* **Google Gemini** (FREE!) for VLM analysis: OCR, logos/objects, color palette, sentiment, tone
+* React/TS with worker pool for **parallel** processing
+* **Google Gemini API** for VLM analysis: OCR, logos/objects, color palette, sentiment, tone
 * Trend-aware analysis considering current marketing best practices
-* Reducer to build campaign insights fast (<5 min for ~40–50 assets)
+* Next.js for backend and endpoints.
 
 ## License & Credits
 
-MIT. Built at **CalHacks 12.0** with **creao.ai**, **Lava**, **Reka**. Inspired by **AppLovin**.
+MIT. Built at **BadgerBuild @ UW-Madison**
